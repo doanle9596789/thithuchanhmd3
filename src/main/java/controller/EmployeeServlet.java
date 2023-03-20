@@ -24,8 +24,30 @@ public class EmployeeServlet extends HttpServlet {
         switch (acction){
             case "create":
                 showcreateEmployee(request,response);
+                break;
+            case "delete":
+                deleteEmPloyee(request,response);
+                break;
+            case "edit":
+                ShowUpdateEmployee(request,response);
+                break;
             default:
                 listEmployees(request,response);
+        }
+    }
+    private void ShowUpdateEmployee(HttpServletRequest request, HttpServletResponse response){
+
+        try {
+            int id = Integer.parseInt(request.getParameter("id"));
+           Employee employee= employeeService.FindEmployeeById(id);
+            request.setAttribute("employee",employee);
+            request.getRequestDispatcher("update.jsp").forward(request,response);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } catch (ServletException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -40,6 +62,30 @@ public class EmployeeServlet extends HttpServlet {
         RequestDispatcher dispatcher=request.getRequestDispatcher("index.jsp");
         dispatcher.forward(request,response);
     }
+    public void updateEmployee(HttpServletRequest request,HttpServletResponse response){
+
+        try {
+            int id= Integer.parseInt(request.getParameter("id"));
+            String name = request.getParameter("name");
+            String email = request.getParameter("email");
+            String address = request.getParameter("address");
+            String phonenumber = request.getParameter("phonenumber");
+            String salary = request.getParameter("salary");
+            String department = request.getParameter("department");
+            Employee employee=new Employee(id,name,email,address,phonenumber,salary,department);
+            employeeService.updateEmployee(employee);
+            request.getRequestDispatcher("EmployeeServlet").forward(request,response);
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } catch (ServletException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+
+    }
 
 
 
@@ -52,20 +98,22 @@ public class EmployeeServlet extends HttpServlet {
         switch (acction){
             case "create":
                 createEmploy(request,response);
+                break;
+            case "edit":
+                updateEmployee(request,response);
+                break;
+            default:listEmployees(request,response);
         }
     }
 
     private void createEmploy(HttpServletRequest request, HttpServletResponse response) {
-
-            String name = request.getParameter("name");
+        try { String name = request.getParameter("name");
             String email = request.getParameter("email");
             String address = request.getParameter("address");
             String phonenumber = request.getParameter("phonenumber");
             String salary = request.getParameter("salary");
             String department = request.getParameter("department");
-
             Employee employee=new Employee(name,email,address,phonenumber,salary,department);
-        try {
             employeeService.createEmployee(employee);
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -80,12 +128,16 @@ public class EmployeeServlet extends HttpServlet {
         }
 
     }
-    private void deleteEmPloyee(HttpServletRequest request, HttpServletResponse response)
-            throws SQLException, IOException, ServletException {
+    private void deleteEmPloyee(HttpServletRequest request, HttpServletResponse response) {
         int id = Integer.parseInt(request.getParameter("id"));
-        employeeService.deleteEmployee(id);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("");
-        dispatcher.forward(request, response);
+        try {
+           employeeService.deleteEmployee(id);
+           request.getRequestDispatcher("EmployeeServlet").forward(request,response);
+
+        } catch (SQLException | IOException | ServletException e) {
+            throw new RuntimeException(e);
+        }
+
     }
 }
-}
+

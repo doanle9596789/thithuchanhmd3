@@ -15,4 +15,5 @@ public interface EmployeeService {
     public boolean deleteEmployee(int id) throws SQLException;
 
     public boolean updateEmployee(Employee employee) throws SQLException;
+    public Employee FindEmployeeById(int id) throws SQLException;
 }

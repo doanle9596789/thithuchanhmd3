@@ -11,7 +11,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class EmployeeServiceIplm implements EmployeeService {
-    private static final String UPDATE_EMPLOY="update employee set name = ?,email= ?, address=?,phonenumber?,salary?,department? where id = ?";
+    private static final String SELECT_BY_ID="select *from employee where id=?";
+    private static final String UPDATE_EMPLOY="update employee set name = ?,email= ?, address=?,phonenumber=?,salary=?,department=? where id = ?";
     private static final String DELETE_EMPLOYEE=" delete from employee where id = ?;";
     private final String FIND_BY_NAME = "select id,name,email,address,phonenumber,salary,department from employee where name " +
             "like concat('%' , ? , '%') ;";
@@ -106,5 +107,25 @@ return rowDeleted;
         }
         return rowUpdated;
 
+    }
+
+    @Override
+    public Employee FindEmployeeById(int id) throws SQLException {
+        connection = CreatDatabase.getConnection();
+        PreparedStatement preparedStatement = connection.prepareStatement(SELECT_BY_ID);
+        preparedStatement.setInt(1, id);
+        ResultSet rs = preparedStatement.executeQuery();
+        Employee employee = null;
+        while (rs.next()) {
+            String name = rs.getString("name");
+            String email = rs.getString("email");
+            String address = rs.getString("address");
+            String phonenumber = rs.getString("phonenumber");
+            String salary = rs.getString("salary");
+            String department = rs.getString("department");
+            employee = new Employee(id, name, email, address, phonenumber, salary, department);
+
+        }
+        return employee;
     }
 }
