@@ -42,28 +42,28 @@
             <tr>
                 <th>Address:</th>
                 <td>
-                    <input type="text" name="country" size="15"
+                    <input type="text" name="address" size="15"
                            value="<c:out value='${employee.address}' />"
                     />
                 </td>
             </tr><tr>
                 <th>PhoneNumber:</th>
                 <td>
-                    <input type="text" name="country" size="15"
+                    <input type="text" name="phonenumber" size="15"
                            value="<c:out value='${employee.getPhoneNumber()}' />"
                     />
                 </td>
             </tr><tr>
                 <th>Salary:</th>
                 <td>
-                    <input type="text" name="country" size="15"
+                    <input type="text" name="salary" size="15"
                            value="<c:out value='${employee.getSalary()}' />"
                     />
                 </td>
             </tr><tr>
                 <th>Department:</th>
                 <td>
-                    <input type="text" name="country" size="15"
+                    <input type="text" name="department" size="15"
                            value="<c:out value='${employee.getDepartment()}' />"
                     />
                 </td>

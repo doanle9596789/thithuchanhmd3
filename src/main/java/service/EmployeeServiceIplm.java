@@ -12,7 +12,7 @@ import java.util.List;
 
 public class EmployeeServiceIplm implements EmployeeService {
     private static final String SELECT_BY_ID="select *from employee where id=?";
-    private static final String UPDATE_EMPLOY="update employee set name = ?,email= ?, address=?,phonenumber=?,salary=?,department=? where id = ?";
+    private static final String UPDATE_EMPLOY="update employee set  name = ?,email= ?, address=?,phonenumber=?,salary=?,department=? where id = ?";
     private static final String DELETE_EMPLOYEE=" delete from employee where id = ?;";
     private final String FIND_BY_NAME = "select id,name,email,address,phonenumber,salary,department from employee where name " +
             "like concat('%' , ? , '%') ;";

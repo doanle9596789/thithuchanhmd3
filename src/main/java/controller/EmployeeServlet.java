@@ -74,13 +74,13 @@ public class EmployeeServlet extends HttpServlet {
             String department = request.getParameter("department");
             Employee employee=new Employee(id,name,email,address,phonenumber,salary,department);
             employeeService.updateEmployee(employee);
-            request.getRequestDispatcher("EmployeeServlet").forward(request,response);
-
+            RequestDispatcher dispatcher = request.getRequestDispatcher("update.jsp");
+            dispatcher.forward(request, response);
         } catch (SQLException e) {
             throw new RuntimeException(e);
-        } catch (ServletException e) {
-            throw new RuntimeException(e);
         } catch (IOException e) {
+            throw new RuntimeException(e);
+        } catch (ServletException e) {
             throw new RuntimeException(e);
         }
 
@@ -132,9 +132,9 @@ public class EmployeeServlet extends HttpServlet {
         int id = Integer.parseInt(request.getParameter("id"));
         try {
            employeeService.deleteEmployee(id);
-           request.getRequestDispatcher("EmployeeServlet").forward(request,response);
+           response.sendRedirect("EmployeeServlet");
 
-        } catch (SQLException | IOException | ServletException e) {
+        } catch (SQLException | IOException e) {
             throw new RuntimeException(e);
         }
 
