@@ -9,7 +9,7 @@
 <center>
     <h1>Employ Management</h1>
     <h2>
-        <a href="EmployeeServlet?action=users">List All Users</a>
+        <a href="EmployeeServlet?action=users">List All Employee</a>
     </h2>
 </center>
 <div align="center">
