@@ -13,7 +13,7 @@
     </h2>
 </center>
 <div align="center">
-    <form method="post">
+    <form method="post" action="EmployeeServlet?acction=edit">
         <table border="1" cellpadding="5">
             <caption>
                 <h2>
@@ -21,7 +21,7 @@
                 </h2>
             </caption>
             <c:if test="${employee != null}">
-                <input type="hidden" name="id" value="<c:out value='${employee.id}' />"/>
+                <input type="hidden" name="id" value="<c:out value='${employee.id}' />" readonly/>
             </c:if>
             <tr>
                 <th>Employ Name:</th>
@@ -64,13 +64,13 @@
                 <th>Department:</th>
                 <td>
                     <input type="text" name="department" size="15"
-                           value="<c:out value='${employee.getDepartment()}' />"
+                           value="<c:out value='${employee.department}' />"
                     />
                 </td>
             </tr>
             <tr>
                 <td colspan="2" align="center">
-                    <input type="submit" value="Save"/>
+                    <input type="submit" value="update"/>
                 </td>
             </tr>
         </table>

@@ -102,6 +102,8 @@ public class EmployeeServlet extends HttpServlet {
             case "edit":
                 updateEmployee(request,response);
                 break;
+            case "search":
+                searchEmployee(request,response);
             default:listEmployees(request,response);
         }
     }
@@ -139,5 +141,22 @@ public class EmployeeServlet extends HttpServlet {
         }
 
     }
+    public void searchEmployee(HttpServletRequest request,HttpServletResponse response){
+        try {
+            List<Employee>list=new ArrayList<>();
+            String name=request.getParameter("searchName");
+          list=  employeeService.searchEmployee(name);
+          request.setAttribute("listS",list);
+          RequestDispatcher dispatcher= request.getRequestDispatcher("index.jsp");
+          dispatcher.forward(request,response);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } catch (ServletException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 }
 

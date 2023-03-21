@@ -14,8 +14,7 @@ public class EmployeeServiceIplm implements EmployeeService {
     private static final String SELECT_BY_ID="select *from employee where id=?";
     private static final String UPDATE_EMPLOY="update employee set  name = ?,email= ?, address=?,phonenumber=?,salary=?,department=? where id = ?";
     private static final String DELETE_EMPLOYEE=" delete from employee where id = ?;";
-    private final String FIND_BY_NAME = "select id,name,email,address,phonenumber,salary,department from employee where name " +
-            "like concat('%' , ? , '%') ;";
+    private final String FIND_BY_NAME = "select id,name,email,address,phonenumber,salary,department from employee where name=?or address=? ";
     private static final String SELECT_ALL_EMPLOYEE = "select * from employee";
     private static final String CREATE_EMPLOYEE = "insert into employee(name,email,address,phonenumber,salary,department)value (?,?,?,?,?,?)";
 
@@ -40,7 +39,8 @@ public class EmployeeServiceIplm implements EmployeeService {
         List<Employee> list = new ArrayList<>();
         connection = CreatDatabase.getConnection();
         PreparedStatement preparedStatement = connection.prepareStatement(FIND_BY_NAME);
-        preparedStatement.setString(1, "name");
+        preparedStatement.setString(1, name);
+        preparedStatement.setString(2, name);
         ResultSet rs = preparedStatement.executeQuery();
         while (rs.next()) {
             list.add(new Employee(rs.getInt("id"),
@@ -96,13 +96,13 @@ return rowDeleted;
         try (
                 Connection connection = CreatDatabase.getConnection();
                 PreparedStatement statement = connection.prepareStatement(UPDATE_EMPLOY);) {
-            statement.setInt(1,employee.getId());
-            statement.setString(2, employee.getName());
-            statement.setString(3, employee.getEmail());
-            statement.setString(4, employee.getAddress());
-            statement.setString(5, employee.getPhoneNumber());
-            statement.setString(6, employee.getSalary());
-            statement.setString(7, employee.getDepartment());
+            statement.setString(1, employee.getName());
+            statement.setString(2, employee.getEmail());
+            statement.setString(3, employee.getAddress());
+            statement.setString(4, employee.getPhoneNumber());
+            statement.setString(5, employee.getSalary());
+            statement.setString(6, employee.getDepartment());
+            statement.setInt(7, employee.getId());
             rowUpdated = statement.executeUpdate() > 0;
         }
         return rowUpdated;
