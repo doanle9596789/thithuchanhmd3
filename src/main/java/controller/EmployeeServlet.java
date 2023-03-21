@@ -147,7 +147,7 @@ public class EmployeeServlet extends HttpServlet {
             String name=request.getParameter("searchName");
           list=  employeeService.searchEmployee(name);
           request.setAttribute("listS",list);
-          RequestDispatcher dispatcher= request.getRequestDispatcher("index.jsp");
+          RequestDispatcher dispatcher= request.getRequestDispatcher("search.jsp");
           dispatcher.forward(request,response);
         } catch (SQLException e) {
             throw new RuntimeException(e);

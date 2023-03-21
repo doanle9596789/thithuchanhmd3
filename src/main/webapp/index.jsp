@@ -40,23 +40,6 @@
             <td> <a href="EmployeeServlet?acction=delete&id=${e.getId()}">Delete</a></td>
         </tr>
     </c:forEach>
-    <c:if test="EmployeeServlet?acction==search">
-    <c:forEach items="${listS}" var="e">
-
-        <tr>
-            <td>${e.getId()}</td>
-            <td>${e.getName()}</td>
-            <td>${e.getEmail()}</td>
-            <td>${e.getAddress()}</td>
-            <td>${e.getPhoneNumber()}</td>
-            <td>${e.getSalary()}</td>
-            <td>${e.getDepartment()}</td>
-            <td> <a href="EmployeeServlet?acction=edit&id=${e.getId()}" >Edit</a></td>
-            <td> <a href="EmployeeServlet?acction=delete&id=${e.getId()}">Delete</a></td>
-            <td><a href="EmployeeServlet">back</a></td>
-        </tr>
-    </c:forEach>
-    </c:if>
 
 </table></div>
 
